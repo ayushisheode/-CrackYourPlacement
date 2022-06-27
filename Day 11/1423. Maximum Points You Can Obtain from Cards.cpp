@@ -1,36 +1,34 @@
 class Solution {
 public:
-
-    int maxScore(vector<int>& cardPoints, int k) {
-        int total_sum = 0;
-       
-        for(auto i : cardPoints)
-            total_sum += i;
+    int maxScore(vector<int>& arr, int k) {
+        int sum=0;
+        int n=arr.size();
         
-        int window = 0; 
-        int n = cardPoints.size();
-        int left = 0;
-        int right = n - k;
-      
+        for(int i=0;i<n;i++)
+            sum+=arr[i];
+        
         if(n==k)
-            return total_sum;
+            return sum;
         
-      
-        for(int i=0;i<right;i++)
+        int i=0,j=n-k,temp=0;
+        
+        for(i=0;i<j;i++)
+            temp+=arr[i];
+        
+        i=0;
+        int ans=INT_MAX;
+        ans=min(ans,temp);
+        
+        while(j<n)
         {
-            window += cardPoints[i];
-        }
-        int ans = total_sum - window;
-        
-    
-        while(right < n)
-        {
-            window -= cardPoints[left++];
-            window += cardPoints[right++];           
-          
-            ans = max(total_sum - window, ans);
+            temp-=arr[i];
+            i++;
+            temp+=arr[j];
+            j++;
+            ans=min(ans,temp);
         }
         
-        return ans;
+        return sum-ans;
+            
     }
 };
