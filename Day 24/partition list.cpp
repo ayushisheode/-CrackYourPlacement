@@ -25,29 +25,24 @@ public:
         {
             if(temp->val<x)
             {
-                ListNode* dummy=new ListNode(temp->val);
-                leftCur->next=dummy;
-                leftCur=dummy;
+                leftCur->next=temp;
+                leftCur=leftCur->next;
+                temp=temp->next;
+                leftCur->next=NULL;
             }
-            temp=temp->next;
-        }
-        
-        temp=head;
-        
-        while(temp!=NULL)
-        {
-            if(temp->val>=x)
+            else
             {
-                ListNode* dummy=new ListNode(temp->val);
-                rightCur->next=dummy;
-                rightCur=dummy;
-            }
-            temp=temp->next;
+                rightCur->next=temp;
+                rightCur=rightCur->next;
+                temp=temp->next;
+                rightCur->next=NULL;
+            }            
         }
         
         leftCur->next=right->next;
-        rightCur->next=NULL;
         
         return left->next;
+        
+        
     }
 };
